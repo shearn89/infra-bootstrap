@@ -49,12 +49,28 @@ then
 fi
 
 echo "Initial checks passed, beginning mirror sync. This may take some time! (16GB)"
-sudo reposync -c config/reposync.conf -a x86_64 -d -p ${MIRRORPATH} -m --download-metadata
+# Could add "-n" to only download newest?
+sudo reposync -c config/reposync.conf -a x86_64 -d -p ${MIRRORPATH} -n -m --download-metadata
+
+# Grabbing all GPG keys for signed packages...
+sudo mkdir -p ${MIRRORPATH}/keys
+key_list=$(grep gpgkey config/reposync.conf  | awk -F= {'print $2'})
+pushd ${MIRRORPATH}/keys
+for key in ${keylist[@]}
+do
+  curl -L -O -J ${key}
+done
+popd
 
 # Download CentOS 7 ISO
-echo "Downloading CentOS 7 Everything ISO, latest version (8GB)."
+echo "Downloading CentOS 7 Minimal ISO, latest version (700MB)."
 pushd $MIRRORPATH
-sudo curl -L -O http://buildlogs.centos.org/rolling/7/isos/x86_64/CentOS-7-x86_64-Everything.iso
+if [[ -f "CentOS-7-x86_64-Minimal.iso" ]]
+then
+  echo "File already exists, skipping..."
+else
+  sudo curl -L -O -J http://buildlogs.centos.org/rolling/7/isos/x86_64/CentOS-7-x86_64-Minimal.iso
+fi
 popd
 
 echo "mirror setup complete."
