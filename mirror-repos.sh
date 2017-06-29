@@ -37,22 +37,24 @@ then
   sudo mkdir -p ${MIRRORPATH}
 fi
 
-# Check if < 30GB available
+# Check if < 25GB available
 free_space=$(df -k ${MIRRORPATH} | tail -n1 | awk {'print $4'})
-if (( $free_space < 31457280 ))
+if (( $free_space < 26214400 ))
 then
-  read -p "${MIRRORPATH} has less than 30GB free space. Continue? (y/N) >> " ans
+  read -p "${MIRRORPATH} has less than 25GB free space. Continue? (y/N) >> " ans
   if ! [[ ${ans} =~ ^[yY] ]]
   then
     exit 1
   fi
 fi
 
-echo "Initial checks passed, beginning mirror sync. This may take some time! (~30GB?)"
+echo "Initial checks passed, beginning mirror sync. This may take some time! (16GB)"
 sudo reposync -c config/reposync.conf -a x86_64 -d -p ${MIRRORPATH} -m --download-metadata
 
 # Download CentOS 7 ISO
-echo "Downloading CentOS 7 Everything ISO, latest version (~8GB)."
+echo "Downloading CentOS 7 Everything ISO, latest version (8GB)."
 pushd $MIRRORPATH
-curl -L -O http://buildlogs.centos.org/rolling/7/isos/x86_64/CentOS-7-x86_64-Everything.iso
+sudo curl -L -O http://buildlogs.centos.org/rolling/7/isos/x86_64/CentOS-7-x86_64-Everything.iso
 popd
+
+echo "mirror setup complete."
