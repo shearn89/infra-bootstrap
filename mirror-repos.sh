@@ -49,7 +49,7 @@ then
 fi
 
 echo "Initial checks passed, beginning mirror sync. This may take some time! (~30GB?)"
-sudo reposync -c config/reposync.conf -a x86_64 -d -p ${MIRRORPATH} -q -m --download-metadata
+sudo reposync -c config/reposync.conf -a x86_64 -d -p ${MIRRORPATH} -m --download-metadata
 
 # Download CentOS 7 ISO
 echo "Downloading CentOS 7 Everything ISO, latest version (~8GB)."
