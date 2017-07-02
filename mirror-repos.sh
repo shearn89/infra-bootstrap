@@ -56,9 +56,9 @@ sudo reposync -c config/reposync.conf -a x86_64 -d -p ${MIRRORPATH} -n -m --down
 sudo mkdir -p ${MIRRORPATH}/keys
 key_list=$(grep gpgkey config/reposync.conf  | awk -F= {'print $2'})
 pushd ${MIRRORPATH}/keys
-for key in ${keylist[@]}
+for key in ${key_list[@]}
 do
-  curl -L -O -J ${key}
+  sudo curl -L -O -J ${key}
 done
 popd
 

@@ -12,6 +12,8 @@ internet connection...)
 
 1. Set `MIRRORPATH` environment variable (defaults to `/var/mirror`).
 1. Run `mirror-repos.sh` on an internet-connected Linux machine.
-2. Transfer content onto your CDN server.
+2. Run `build-cdn-iso.sh` to build a bootable ISO for the CDN.
+3. Boot CDN machine using custom ISO.
+2. Transfer `MIRRORPATH` content onto your CDN server.
 3. Build Foreman server using `ks-foreman.cfg` kickstart.
 4. Run Foreman setup scripts in order.
