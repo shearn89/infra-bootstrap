@@ -19,7 +19,7 @@ sudo mount -o loop ${MIRRORPATH}/${ISONAME} /mnt/iso
 WORKINGDIR=$(mktemp -d)
 cp -rv /mnt/iso ${WORKINGDIR}/iso
 cp kickstarts/ks-cdn.cfg ${WORKINGDIR}/iso/ks.cfg
-sed -i 's/append\ initrd\=initrd.img$/append initrd=initrd.img\ ks\=cdrom:\/ks.cfg/' ${WORKINGDIR}/iso/isolinux/isolinux.cfg
+cp isolinux.cfg ${WORKINGDIR}/iso/isolinux/
 pushd ${WORKINGDIR}/iso
 sudo mkisofs \
   -o /tmp/boot-cdn.iso \
@@ -38,4 +38,4 @@ echo "BUILD COMPLETE."
 pwd
 sudo mv /tmp/boot-cdn.iso ./
 echo "ISO is at $(pwd)/boot-cdn.iso"
-sudo rm -rf $WORKINGDIR
+# sudo rm -rf $WORKINGDIR
