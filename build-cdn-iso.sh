@@ -22,7 +22,7 @@ cp kickstarts/ks-cdn.cfg ${WORKINGDIR}/iso/ks.cfg
 sed -i 's/append\ initrd\=initrd.img$/append initrd=initrd.img\ ks\=cdrom:\/ks.cfg/' ${WORKINGDIR}/iso/isolinux/isolinux.cfg
 pushd ${WORKINGDIR}/iso
 sudo mkisofs \
-  -o /tmp/boot.iso \
+  -o /tmp/boot-cdn.iso \
   -b isolinux.bin \
   -c boot.cat \
   -no-emul-boot \
@@ -32,4 +32,10 @@ sudo mkisofs \
   isolinux/. .
 popd
 sudo umount /mnt/iso
-# rm -rf $WORKINGDIR
+
+echo ""
+echo "BUILD COMPLETE."
+pwd
+sudo mv /tmp/boot-cdn.iso ./
+echo "ISO is at $(pwd)/boot-cdn.iso"
+sudo rm -rf $WORKINGDIR
