@@ -7,7 +7,7 @@ then
 fi
 if [[ -z ${ISONAME} ]]
 then
-  ISONAME=CentOS-7-x86_64-Minimal.iso 
+  ISONAME=CentOS-7-x86_64-DVD.iso 
 fi
 
 

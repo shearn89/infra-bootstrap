@@ -12,6 +12,7 @@ internet connection...)
 
 1. Set `MIRRORPATH` environment variable (defaults to `/var/mirror`).
 1. Run `mirror-repos.sh` on an internet-connected Linux machine.
+1. Set `ISONAME` environment variable (defaults to `CentOS-7-x86_64-DVD.iso`.
 2. Run `build-cdn-iso.sh` to build a bootable ISO for the CDN.
 3. Boot CDN machine using custom ISO.
 2. Transfer `MIRRORPATH` content onto your CDN server.

@@ -63,13 +63,13 @@ done
 popd
 
 # Download CentOS 7 ISO
-echo "Downloading CentOS 7 Minimal ISO, latest version (700MB)."
+echo "Downloading CentOS 7 DVD ISO, latest version (4GB)."
 pushd $MIRRORPATH
-if [[ -f "CentOS-7-x86_64-Minimal.iso" ]]
+if [[ -f "CentOS-7-x86_64-DVD.iso" ]]
 then
   echo "File already exists, skipping..."
 else
-  sudo curl -L -O -J http://buildlogs.centos.org/rolling/7/isos/x86_64/CentOS-7-x86_64-Minimal.iso
+  sudo curl -L -O -J http://buildlogs.centos.org/rolling/7/isos/x86_64/CentOS-7-x86_64-DVD.iso
 fi
 popd
 
