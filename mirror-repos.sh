@@ -52,6 +52,26 @@ echo "Initial checks passed, beginning mirror sync. This may take some time! (16
 # Could add "-n" to only download newest?
 sudo reposync -c config/reposync.conf -a x86_64 -d -p ${MIRRORPATH} -n -m --download-metadata
 
+echo "Creating the actual repodata for the repos."
+for REPO in $(find /var/mirror -maxdepth 1 -mindepth 1 -not -path */keys -type d)
+do
+  pushd $REPO
+    if [[ -f "*comps.xml.gz" ]]
+    then
+      gunzip -k -c *comps.xml.gz > comps.xml
+    fi
+    if [[ -f "comps.xml" ]]
+    then
+      echo "groups file found, processing"
+      createrepo -g comps.xml .
+    else
+      echo "no groups file found, skipping"
+      createrepo .
+    fi
+  popd
+done
+echo "repodata creation complete"
+
 # Grabbing all GPG keys for signed packages...
 sudo mkdir -p ${MIRRORPATH}/keys
 key_list=$(grep gpgkey config/reposync.conf  | awk -F= {'print $2'})
