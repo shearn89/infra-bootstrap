@@ -11,18 +11,17 @@ then
 fi
 
 
-
 sudo mkdir -p /mnt/iso
 
 sudo mount -o loop ${MIRRORPATH}/${ISONAME} /mnt/iso
 
 WORKINGDIR=$(mktemp -d)
 cp -rv /mnt/iso ${WORKINGDIR}/iso
-cp kickstarts/ks-cdn.cfg ${WORKINGDIR}/iso/ks.cfg
+cp kickstarts/ks-foreman.cfg ${WORKINGDIR}/iso/ks.cfg
 cp isolinux.cfg ${WORKINGDIR}/iso/isolinux/
 pushd ${WORKINGDIR}/iso
 sudo mkisofs \
-  -o /tmp/boot-cdn.iso \
+  -o /tmp/boot-kickstart.iso \
   -b isolinux.bin \
   -c boot.cat \
   -no-emul-boot \
@@ -36,6 +35,6 @@ sudo umount /mnt/iso
 echo ""
 echo "BUILD COMPLETE."
 pwd
-sudo mv /tmp/boot-cdn.iso ./
-echo "ISO is at $(pwd)/boot-cdn.iso"
+sudo mv /tmp/boot-kickstart.iso ./
+echo "ISO is at $(pwd)/boot-kickstart.iso"
 # sudo rm -rf $WORKINGDIR
