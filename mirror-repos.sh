@@ -4,6 +4,8 @@
 if [[ -z ${MIRRORPATH} ]]
 then
   MIRRORPATH=/var/mirror
+else
+  echo "MIRRORPATH is set ot ${MIRRORPATH}"
 fi
 
 # Check for reposync tool.
